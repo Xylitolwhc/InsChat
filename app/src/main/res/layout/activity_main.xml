@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="whc.uniquestudio.wifitest.MainActivity">
+
+    <!--<Button-->
+    <!--android:id="@+id/GET"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="GET" />-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/MainViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/NavigationBar">
+
+        </android.support.v4.view.ViewPager>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/NavigationBar"
+            android:background="#999" />
+
+        <LinearLayout
+            android:id="@+id/NavigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp">
+
+            <LinearLayout
+                android:id="@+id/MainPageTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/MainPageTabImage"
+                    android:layout_width="@dimen/navigation_bar_image_width"
+                    android:layout_height="@dimen/navigation_bar_image_height"
+                    android:layout_margin="@dimen/navigation_bar_image_margin"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/MainPageTabText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="首页"
+                    android:textColor="@color/colorBarUnSelected" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/MessageBoardTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/MessageBoardTabImage"
+                    android:layout_width="@dimen/navigation_bar_image_width"
+                    android:layout_height="@dimen/navigation_bar_image_height"
+                    android:layout_margin="@dimen/navigation_bar_image_margin"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/MessageBoardTabText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="留言板"
+                    android:textColor="@color/colorBarUnSelected" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/SettingsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/SettingsTabImage"
+                    android:layout_width="@dimen/navigation_bar_image_width"
+                    android:layout_height="@dimen/navigation_bar_image_height"
+                    android:layout_margin="@dimen/navigation_bar_image_margin"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/SettingsTabText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="设置"
+                    android:textColor="@color/colorBarUnSelected" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
