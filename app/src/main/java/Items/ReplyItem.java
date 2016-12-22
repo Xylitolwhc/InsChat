@@ -18,13 +18,22 @@ public class ReplyItem {
     //其他属性
 
     private String imei = InsChatApplication.getInstance().getUser().getImei();
-    private int createTime;
+    private long createTime;
 
     private String nickName;
+    private String signature;
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
     private Bitmap avatar;
 
-    public ReplyItem(long topicHashcode,int createTime, String nickName, String content, Bitmap avatar) {
+    public ReplyItem(long topicHashcode,long createTime, String nickName, String content, Bitmap avatar) {
         this.createTime = createTime;
         this.topicHashcode = topicHashcode;
         this.nickName = nickName;
@@ -43,16 +52,20 @@ public class ReplyItem {
         this.topicHashcode = topicHashcode;
     }
 
-    public int getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(int createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
     public String getImei() {
         return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
     public String getNickName() {
