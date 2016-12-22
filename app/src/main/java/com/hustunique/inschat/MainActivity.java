@@ -1,33 +1,28 @@
 package com.hustunique.inschat;
 
-import android.content.Context;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiManager;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Adapters.FragmentsAdapter;
+import Application.InsChatApplication;
 import Fragments.MainPageFragment;
 import Fragments.MessageBoardFragment;
 import Fragments.SettingsFragment;
+import Items.ReplyItem;
+import Items.TopicItem;
+import Items.User;
+import Util.IMEIUtil;
+import Util.LeanCloudUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -62,7 +57,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        checkNewUser();
         init();
+
+
+        User user = new User();
+        user.setImei(IMEIUtil.getImei());
+        InsChatApplication.setUser(user);
+        LeanCloudUtil.addWIFI("test_wifiname");
+
+        TopicItem item = new TopicItem();
+        item.setWifiName("HUST_WIRELESS");
+        item.setTitleAndContent("808没零食了","话说哪个妹子提供点");
+        LeanCloudUtil.addTopic(item);
+
+        ReplyItem item1 = new ReplyItem();
+        item1.setContent("吃完啦，别想");
+        item1.setTopicHashcode(item.getTopicHashcode());
+        LeanCloudUtil.replyTopic(item1);
+
+
+
+
+
 //        get.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -181,6 +198,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 changeTab(2);
                 break;
             }
+        }
+    }
+
+    public void checkNewUser() {
+        if (!InsChatApplication.ifInitUser()) {
+
         }
     }
 }
