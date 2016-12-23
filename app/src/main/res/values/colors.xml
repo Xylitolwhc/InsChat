@@ -8,4 +8,5 @@
     <color name="colorBarSelected">#00AE9D</color>
     <color name="colorDivider">#000000</color>
     <color name="colorPageBackground">#DDDDDD</color>
+    <color name="colorGray">#c9c9c9</color>
 </resources>

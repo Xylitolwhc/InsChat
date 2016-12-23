@@ -19,8 +19,17 @@ public class TopicItem {
     private String wifiName;
     private String creatorNickName;
     private String creatorSignature;
+    private int heat;
 
     //其他属性
+
+    public int getHeat() {
+        return heat;
+    }
+
+    public void setHeat(int heat) {
+        this.heat = heat;
+    }
 
     private Bitmap creatorAvatar;
     private long createTime;

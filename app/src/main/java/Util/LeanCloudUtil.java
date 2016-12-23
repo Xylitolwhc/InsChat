@@ -40,6 +40,7 @@ public class LeanCloudUtil {
     private static final String SIGNATURE = "SIGNATURE";
     private static final String AVATAR = "AVATAR";
     private static final String NICKMAME = "NICKNAME";
+    private static final String HEAT = "HEAT";
 
     private static AVObject wifiObject = new AVObject(TABLE_WIFI_LIST);
     private static AVObject topicObject = new AVObject(TABLE_TOPIC_LIST);
@@ -73,10 +74,14 @@ public class LeanCloudUtil {
         topicObject.add(TOPIC_HASHCODE, item.getTopicHashcode());
         topicObject.add(SIGNATURE, item.getCreatorSignature());
         topicObject.add(NICKMAME,item.getCreatorNickName());
+        topicObject.add(HEAT,1);
         topicObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
                 if (e == null) {
+                    topicObject.increment(HEAT);
+                    topicObject.setFetchWhenSave(true);
+                    topicObject.saveInBackground();
                     InsChatApplication.toast("话题创建成功！");
                 } else {
                     InsChatApplication.toast("话题创建失败！");
@@ -90,6 +95,9 @@ public class LeanCloudUtil {
         replyObject.add(IMEI, item.getImei());
         replyObject.add(REPLY_CONTENT,item.getContent());
         replyObject.saveInBackground();
+        topicObject.increment(HEAT);
+        topicObject.setFetchWhenSave(true);
+        topicObject.saveInBackground();
     }
 
     public static void addUser(User user) {
@@ -129,6 +137,7 @@ public class LeanCloudUtil {
                 item.setCreatorSignature((String) list.get(i).get(SIGNATURE));
                 item.setImei((String) list.get(i).get(IMEI));
                 item.setCreateTime(((Date)list.get(i).get("createdAt")).getTime());
+                item.setHeat((Integer)list.get(i).get(HEAT));
                 topicList.add(item);
                 return topicList;
             }
@@ -172,6 +181,4 @@ public class LeanCloudUtil {
         });
         return true;
     }
-
-
 }
