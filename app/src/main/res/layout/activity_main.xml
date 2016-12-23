@@ -4,8 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="whc.uniquestudio.wifitest.MainActivity">
+    android:orientation="vertical">
 
     <!--<Button-->
     <!--android:id="@+id/GET"-->
@@ -29,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@id/NavigationBar"
-            android:background="#999" />
+            android:background="#434343" />
 
         <LinearLayout
             android:id="@+id/NavigationBar"
@@ -37,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
+            android:background="#434343"
             android:paddingBottom="3dp">
 
             <LinearLayout
