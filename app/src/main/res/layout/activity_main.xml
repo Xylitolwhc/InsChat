@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#434343"
                 android:orientation="vertical">
 
                 <ImageView
@@ -51,6 +52,7 @@
                     android:layout_width="@dimen/navigation_bar_image_width"
                     android:layout_height="@dimen/navigation_bar_image_height"
                     android:layout_margin="@dimen/navigation_bar_image_margin"
+                    android:background="#434343"
                     android:layout_gravity="center" />
 
                 <TextView
@@ -67,6 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#434343"
                 android:orientation="vertical">
 
                 <ImageView
@@ -74,6 +77,7 @@
                     android:layout_width="@dimen/navigation_bar_image_width"
                     android:layout_height="@dimen/navigation_bar_image_height"
                     android:layout_margin="@dimen/navigation_bar_image_margin"
+                    android:background="#434343"
                     android:layout_gravity="center" />
 
                 <TextView
@@ -90,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#434343"
                 android:orientation="vertical">
 
                 <ImageView
@@ -97,6 +102,7 @@
                     android:layout_width="@dimen/navigation_bar_image_width"
                     android:layout_height="@dimen/navigation_bar_image_height"
                     android:layout_margin="@dimen/navigation_bar_image_margin"
+                    android:background="#434343"
                     android:layout_gravity="center" />
 
                 <TextView
