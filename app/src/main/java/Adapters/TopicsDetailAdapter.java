@@ -23,7 +23,7 @@ import Items.ReplyItem;
  */
 
 public class TopicsDetailAdapter extends RecyclerView.Adapter<TopicsDetailAdapter.TopicsDetailViewHolder> {
-private Context context;
+    private Context context;
     private List<ReplyItem> replyItemList;
 
     public TopicsDetailAdapter(Context context, List<ReplyItem> replyItemList) {
@@ -31,44 +31,59 @@ private Context context;
         this.replyItemList = replyItemList;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return 1;
+        }
+        return super.getItemViewType(position);
+    }
 
     @Override
     public TopicsDetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        TopicsDetailViewHolder holder=new TopicsDetailViewHolder(LayoutInflater.from(context).inflate(R.layout.wifi_topic_reply_item, parent, false));
+        TopicsDetailViewHolder holder;
+        if (viewType == 1) {
+            holder = new TopicsDetailViewHolder(LayoutInflater.from(context).inflate(R.layout.wifi_topic_reply_item, parent, false));
+        } else {
+            holder = new TopicsDetailViewHolder(LayoutInflater.from(context).inflate(R.layout.wifi_topic_reply_item, parent, false));
+        }
         return holder;
     }
 
     @Override
     public void onBindViewHolder(TopicsDetailViewHolder holder, final int position) {
-        ReplyItem replyItem=replyItemList.get(position);
-        holder.replyContent.setText(replyItem.getContent());
-        holder.replyFloor.setText(position+"楼");
-        holder.replyUsername.setText(replyItem.getNickName());
-        holder.replyUserImage.setImageBitmap(replyItem.getAvatar());
-        holder.replyLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InsChatApplication.toast(position+"楼");
-            }
-        });
+        if (position != 0) {
+            ReplyItem replyItem = replyItemList.get(position-1);
+            holder.replyContent.setText(replyItem.getContent());
+            holder.replyFloor.setText(position + "楼");
+            holder.replyUsername.setText(replyItem.getNickName());
+            holder.replyUserImage.setImageBitmap(replyItem.getAvatar());
+            holder.replyLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    InsChatApplication.toast(position + "楼");
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return replyItemList.size();
+        return replyItemList.size()+1;
     }
 
-    class TopicsDetailViewHolder extends RecyclerView.ViewHolder{
+    class TopicsDetailViewHolder extends RecyclerView.ViewHolder {
         ImageView replyUserImage;
-        TextView replyUsername,replyFloor,replyContent;
+        TextView replyUsername, replyFloor, replyContent;
         LinearLayout replyLayout;
+
         public TopicsDetailViewHolder(View itemView) {
             super(itemView);
-            replyContent=(TextView)itemView.findViewById(R.id.replyContent);
-            replyFloor=(TextView)itemView.findViewById(R.id.replyFloor);
-            replyUsername=(TextView)itemView.findViewById(R.id.replyUsername);
-            replyUserImage=(ImageView)itemView.findViewById(R.id.replyUserImage);
-            replyLayout=(LinearLayout)itemView.findViewById(R.id.replyLayout);
+            replyContent = (TextView) itemView.findViewById(R.id.replyContent);
+            replyFloor = (TextView) itemView.findViewById(R.id.replyFloor);
+            replyUsername = (TextView) itemView.findViewById(R.id.replyUsername);
+            replyUserImage = (ImageView) itemView.findViewById(R.id.replyUserImage);
+            replyLayout = (LinearLayout) itemView.findViewById(R.id.replyLayout);
         }
     }
 }

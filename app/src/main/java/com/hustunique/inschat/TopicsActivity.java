@@ -65,7 +65,7 @@ public class TopicsActivity extends AppCompatActivity {
 
         swipeRefreshLayoutOfTopics.setRefreshing(true);
         recyclerViewOfTopics.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewOfTopics.addItemDecoration(new RecycleViewDivider(this,LinearLayout.VERTICAL));
+        recyclerViewOfTopics.addItemDecoration(new RecycleViewDivider(this,LinearLayout.HORIZONTAL));
         swipeRefreshLayoutOfTopics.setRefreshing(true);
         refresh();
         swipeRefreshLayoutOfTopics.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
