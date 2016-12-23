@@ -68,12 +68,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        LeanCloudUtil.addWIFI("HUST_WIRELESS");
 //
 //
-        String title = "话题1";
-        String content = "内容1";
-
-        TopicItem item = new TopicItem();
-        item.setWifiName("HUST_WIRELESS");
-        item.setTitleAndContent(title,content);
+//        String title = "话题1";
+//        String content = "内容1";
+//
+//        TopicItem item = new TopicItem();
+//        item.setWifiName("HUST_WIRELESS");
+//        item.setTitleAndContent(title,content);
 //        LeanCloudUtil.addTopic(item);
 //
 //        String reply = "吃完啦，别想";
@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        item1.setContent(reply);
 //        item1.setTopicHashcode(item.getTopicHashcode());
 //        LeanCloudUtil.replyTopic(item1);
-        ArrayList<TopicItem> list = LeanCloudUtil.getTopicList("HUST_WIRELESS");
-        Log.d("holo", list.size() + "  " + list.get(0).getTitle());
-        ArrayList<ReplyItem> list1 = LeanCloudUtil.getRepliList(item.getTopicHashcode());
-        Log.d("holo", list1.size() + "  " + list1.get(0).getContent());
+//        ArrayList<TopicItem> list = LeanCloudUtil.getTopicList("HUST_WIRELESS");
+//        Log.d("holo", list.size() + "  " + list.get(0).getTitle());
+//        ArrayList<ReplyItem> list1 = LeanCloudUtil.getRepliList(item.getTopicHashcode());
+//        Log.d("holo", list1.size() + "  " + list1.get(0).getContent());
 //        get.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
