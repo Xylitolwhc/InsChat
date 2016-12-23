@@ -42,6 +42,7 @@ public class TopicsActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topics);
+        getSupportActionBar().hide();
         ButterKnife.bind(this);
 
         wifiSSID = getIntent().getStringExtra("SSID");
