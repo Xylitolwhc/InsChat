@@ -1,5 +1,6 @@
 package com.hustunique.inschat;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.SettingsTab)
     LinearLayout ll2;
 
+    public static final int HAS_INIT_USER_INFORMATION = 1;
+    public static final int HAS_NOT_INIT_USER_INFORMATION = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +67,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         init();
 
 
+//
 //        User user = new User();
 //        user.setImei(IMEIUtil.getImei());
-//        InsChatApplication.setUser(user);
+//        user.setNickname("qimeng");
+//        user.setSignature("爆炸");
+//
 //        LeanCloudUtil.addWIFI("HUST_WIRELESS");
 //
 //
-//        String title = "话题1";
-//        String content = "内容1";
+//        String title = "809的妹子还有吃的吗？";
+//        String content = "好饿好饿好饿我真的好饿";
 //
 //        TopicItem item = new TopicItem();
 //        item.setWifiName("HUST_WIRELESS");
@@ -82,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        item1.setContent(reply);
 //        item1.setTopicHashcode(item.getTopicHashcode());
 //        LeanCloudUtil.replyTopic(item1);
+
+
 //        ArrayList<TopicItem> list = LeanCloudUtil.getTopicList("HUST_WIRELESS");
 //        Log.d("holo", list.size() + "  " + list.get(0).getTitle());
 //        ArrayList<ReplyItem> list1 = LeanCloudUtil.getRepliList(item.getTopicHashcode());
@@ -204,8 +213,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void checkNewUser() {
-        if (!InsChatApplication.ifInitUser()) {
+        SharedPreferences sharedPreferences = getSharedPreferences("data.dll", MODE_PRIVATE);
+        Boolean hasInit = sharedPreferences.getBoolean("hasInit", false);
+        if (!hasInit) {
+            Intent intent = new Intent(this, UserSettingActivity.class);
+            startActivityForResult(intent, 1);
+        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("holo", "result on");
+        if (requestCode == 1) {
+            if (resultCode == HAS_NOT_INIT_USER_INFORMATION) {
+                Log.d("holo", "finish");
+                finish();
+            }else {
+                Log.d("holo", "resetuser");
+                InsChatApplication.resetUser();
+            }
         }
     }
 }

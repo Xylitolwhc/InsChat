@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.hustunique.inschat.R;
 import com.hustunique.inschat.TopicDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Items.TopicItem;
@@ -80,5 +81,10 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicsView
             theUserImage = (ImageView) itemView.findViewById(R.id.theUserImage);
             WifiTopicLayout = (LinearLayout) itemView.findViewById(R.id.WifiTopicLayout);
         }
+    }
+
+    public void setList(ArrayList<TopicItem> list) {
+        this.topicItemList = list;
+        this.notifyDataSetChanged();
     }
 }

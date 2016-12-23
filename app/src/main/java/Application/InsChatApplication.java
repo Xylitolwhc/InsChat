@@ -2,6 +2,7 @@ package Application;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVOSCloud;
@@ -25,6 +26,12 @@ public class InsChatApplication extends Application {
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         //初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this, "LqHW6OxqSFijlFWcwRtdV32d-gzGzoHsz", "cAxlcdWutU6rY9SfoXd5SskN");
+        SharedPreferences sharedPreferences = insChatApplication.getSharedPreferences("data.dll", MODE_PRIVATE);
+        boolean hasInit = sharedPreferences.getBoolean("hasInit", false);
+        if (hasInit) {
+            resetUser();
+        }
+
     }
 
     public static InsChatApplication getInstance() {
@@ -36,17 +43,24 @@ public class InsChatApplication extends Application {
         toast.show();
     }
 
-    public static void setUser(User auser) {
-        user = auser;
-    }
 
     public static User getUser() {
         return user;
     }
 
-    public static boolean ifInitUser() {
-        SharedPreferences data = getInstance().getSharedPreferences("data.dll", MODE_PRIVATE);
-        return data.getBoolean("ifInitUser", false);
+    public static void resetUser() {
+        SharedPreferences sharedPreferences = insChatApplication.getSharedPreferences("data.dll", MODE_PRIVATE);
+        String nickname = sharedPreferences.getString("nickname", null);
+        String signature = sharedPreferences.getString("signature", null);
+        String gender = sharedPreferences.getString("gender", null);
+        String imei = sharedPreferences.getString("imei", null);
+        user = new User();
+        user.setSignature(signature);
+        user.setNickname(nickname);
+        user.setGender(gender);
+        user.setImei(imei);
+        Log.d("holo", "finish reset");
     }
+
 
 }

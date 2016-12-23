@@ -23,13 +23,7 @@ public class TopicItem {
 
     //其他属性
 
-    public int getHeat() {
-        return heat;
-    }
 
-    public void setHeat(int heat) {
-        this.heat = heat;
-    }
 
     private Bitmap creatorAvatar;
     private long createTime;
@@ -49,6 +43,21 @@ public class TopicItem {
         this.content = content;
         this.wifiName = wifiName;
         this.reaplyList = reaplyList;
+    }
+
+
+    public int getHeat() {
+        return heat;
+    }
+
+    public void setHeat(int heat) {
+        this.heat = heat;
+    }
+
+
+
+    public void setTopicHashcode(long topicHashcode) {
+        this.topicHashcode = topicHashcode;
     }
 
     public String getCreatorSignature() {
