@@ -1,6 +1,7 @@
 package com.hustunique.inschat;
 
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -118,10 +119,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentList.add(new MessageBoardFragment());
         fragmentList.add(new SettingsFragment());
 
-        iv0.setBackgroundColor(getResources().getColor(R.color.colorBarUnSelected));
-        iv1.setBackgroundColor(getResources().getColor(R.color.colorBarUnSelected));
-        iv2.setBackgroundColor(getResources().getColor(R.color.colorBarUnSelected));
-
         changeTab(0);
         MainViewPager.setAdapter(new FragmentsAdapter(getSupportFragmentManager(), fragmentList));
         MainViewPager.setOffscreenPageLimit(3);
@@ -166,22 +163,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv0.setTextColor(getResources().getColor(R.color.colorBarUnSelected));
         tv1.setTextColor(getResources().getColor(R.color.colorBarUnSelected));
         tv2.setTextColor(getResources().getColor(R.color.colorBarUnSelected));
-        iv0.setBackgroundColor(getResources().getColor(R.color.colorBarUnSelected));
-        iv1.setBackgroundColor(getResources().getColor(R.color.colorBarUnSelected));
-        iv2.setBackgroundColor(getResources().getColor(R.color.colorBarUnSelected));
+        iv0.setImageResource(R.drawable.i_unselected);
+        iv1.setImageResource(R.drawable.n_unselected);
+        iv2.setImageResource(R.drawable.c_unselected);
         switch (position) {
             case 0: {
-                iv0.setBackgroundColor(getResources().getColor(R.color.colorBarSelected));
+                iv0.setImageResource(R.drawable.i_selected);
                 tv0.setTextColor(getResources().getColor(R.color.colorBarSelected));
                 break;
             }
             case 1: {
-                iv1.setBackgroundColor(getResources().getColor(R.color.colorBarSelected));
+                iv1.setImageResource(R.drawable.n_selected);
                 tv1.setTextColor(getResources().getColor(R.color.colorBarSelected));
                 break;
             }
             case 2: {
-                iv2.setBackgroundColor(getResources().getColor(R.color.colorBarSelected));
+                iv2.setImageResource(R.drawable.c_selected);
                 tv2.setTextColor(getResources().getColor(R.color.colorBarSelected));
                 break;
             }

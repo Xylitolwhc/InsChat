@@ -4,20 +4,36 @@
     android:layout_height="60dp"
     android:background="@color/colorPrimary">
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="15dp"
-        android:background="@mipmap/back_button" />
+    <LinearLayout
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true">
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="46dp"
-        android:layout_height="28dp"
+        <ImageView
+            android:clickable="false"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/back_button" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@mipmap/add_button" />
+        android:layout_centerVertical="true">
 
+        <ImageView
+            android:clickable="false"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:background="@mipmap/add_button" />
+    </LinearLayout>
 </RelativeLayout>
