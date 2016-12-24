@@ -76,6 +76,7 @@ public class TopicsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         wifiSSID = getIntent().getStringExtra("SSID");
+        LeanCloudUtil.addWIFI(wifiSSID);
         getSupportActionBar().setTitle(wifiSSID);
 
         swipeRefreshLayoutOfTopics.setRefreshing(true);
@@ -136,13 +137,9 @@ public class TopicsActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-<<<<<<< HEAD
 
         LeanCloudUtil.getTopicList(wifiSSID,handler);
-=======
-        Message message=new Message();
-        handler.sendEmptyMessage(0);
->>>>>>> dev-whc
+
     }
 }
 

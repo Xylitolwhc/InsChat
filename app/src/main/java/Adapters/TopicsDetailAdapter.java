@@ -52,7 +52,7 @@ public class TopicsDetailAdapter extends RecyclerView.Adapter<TopicsDetailAdapte
 
     @Override
     public void onBindViewHolder(TopicsDetailViewHolder holder, final int position) {
-        if (position != 0) {
+        if (true) {
             ReplyItem replyItem = replyItemList.get(position-1);
             holder.replyContent.setText(replyItem.getContent());
             holder.replyFloor.setText(position + "楼");

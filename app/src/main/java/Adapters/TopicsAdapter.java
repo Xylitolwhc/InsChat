@@ -56,6 +56,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicsView
                 public void onClick(View v) {
                     Intent intent = new Intent(context, TopicDetailActivity.class);
                     intent.putExtra("HashCode",topicItem.getTopicHashcode());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
             });

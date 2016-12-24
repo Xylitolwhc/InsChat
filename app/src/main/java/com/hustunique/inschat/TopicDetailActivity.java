@@ -1,6 +1,7 @@
 package com.hustunique.inschat;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -30,6 +32,8 @@ import butterknife.ButterKnife;
  * Created by 吴航辰 on 2016/12/22.
  */
 
+
+
 public class TopicDetailActivity extends AppCompatActivity {
     @BindView(R.id.swipeRefreshLayoutOfTopicDetail)
     SwipeRefreshLayout swipeRefreshLayoutOfTopicDetail;
@@ -39,7 +43,7 @@ public class TopicDetailActivity extends AppCompatActivity {
     LinearLayout button_add;
     @BindView(R.id.button_back)
     LinearLayout button_back;
-
+    private long hashcode;
     private List<ReplyItem> replyItemList=new ArrayList<>();
     private TopicsDetailAdapter topicsDetailAdapter;
     private Handler handler = new Handler() {
@@ -57,9 +61,14 @@ public class TopicDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_detail);
         ButterKnife.bind(this);
+        getSupportActionBar().hide();
         final Long topicHashCode=getIntent().getLongExtra("HashCode",0);
         swipeRefreshLayoutOfTopicDetail.setRefreshing(true);
         recyclerViewOfTopicDetail.setLayoutManager(new LinearLayoutManager(this));
+        Intent intent = getIntent();
+        hashcode = intent.getLongExtra("HashCode", 0);
+        Log.d("holo", hashcode + " d");
+        refresh();
         swipeRefreshLayoutOfTopicDetail.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -106,6 +115,7 @@ public class TopicDetailActivity extends AppCompatActivity {
         });
     }
     private  void refresh(){
+        LeanCloudUtil.getRepliList(hashcode);
         handler.sendEmptyMessage(0);
     }
 }

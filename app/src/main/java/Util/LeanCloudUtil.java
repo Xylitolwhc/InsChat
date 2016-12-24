@@ -153,10 +153,15 @@ public class LeanCloudUtil {
                                                item.setCreatorSignature(((ArrayList<String>)list.get(i).get(SIGNATURE)).get(0));
                                                item.setImei(((ArrayList<String>) list.get(i).get(IMEI)).get(0));
                                                item.setCreateTime(object.getCreatedAt().getTime());
-                                               Log.d("holo",((ArrayList<TopicItem>)list.get(i).get(TOPIC_HASHCODE)).toString());
+                                               String tem = ((ArrayList<String>) list.get(i).get(TOPIC_HASHCODE)).toString();
+                                               String hashcode = tem.substring(1,tem.length()-1);
+                                               Log.d("holo", hashcode + "aa");
+
+                                               
+                                               Long hash = new Long(hashcode);
+                                               item.setTopicHashcode(hash);
                                                //item.setTopicHashcode(((ArrayList<String>) list.get(i).get(IMEI)).get(0));
                                              //  Log.d("holo",((ArrayList<String>) object.get(HEAT)).get(0));
-
 
 //                                               item.setHeat(heat);
 
@@ -200,22 +205,24 @@ public class LeanCloudUtil {
     public static ArrayList<ReplyItem> getRepliList(long hashcode) {
         AVQuery<AVObject> query = new AVQuery<>(TABLE_REPLY_LIST);
         query.whereEqualTo(TOPIC_HASHCODE, hashcode);
-        try {
-            List<AVObject> list = query.find();
-            ArrayList<ReplyItem> replyList = new ArrayList<>();
-            for (int i = 0; i < list.size(); i++) {
-                ReplyItem item = new ReplyItem();
-                item.setImei((String) list.get(i).get(IMEI));
-                item.setContent((String) list.get(i).get(REPLY_CONTENT));
-                item.setCreateTime(((Date) list.get(i).get("createdAt")).getTime());
-                item.setNickName((String) list.get(i).get(NICKNAME));
-                item.setSignature((String) list.get(i).get(SIGNATURE));
-                replyList.add(item);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                ArrayList<ReplyItem> replyList = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    ReplyItem item = new ReplyItem();
+                    AVObject object = list.get(i);
+                    String imei = ((ArrayList<String>) object.get(IMEI)).get(0);
+                    item.setImei(imei);
+                    item.setContent(((ArrayList<String>) object.get(REPLY_CONTENT)).get(0));
+                    item.setCreateTime(object.getCreatedAt().getTime());
+                    item.setNickName(((ArrayList<String>) object.get(NICKNAME)).get(0));
+                    item.setSignature(((ArrayList<String>) object.get(SIGNATURE)).get(0));
+                    replyList.add(item);
+                }
+                Log.d("holo", replyList.toString());
             }
-            return replyList;
-        } catch (AVException e) {
-            e.printStackTrace();
-        }
+        });
         return null;
     }
 
