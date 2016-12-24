@@ -5,6 +5,8 @@
     android:background="@color/colorPageBackground"
     android:orientation="vertical">
 
+    <include layout="@layout/actionbar_main" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"

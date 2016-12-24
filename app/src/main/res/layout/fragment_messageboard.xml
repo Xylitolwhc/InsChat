@@ -5,6 +5,8 @@
     android:background="@color/colorPageBackground"
     android:orientation="vertical">
 
+    <include layout="@layout/actionbar_with_text" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
