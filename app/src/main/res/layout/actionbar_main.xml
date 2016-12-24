@@ -6,19 +6,17 @@
     android:background="@color/colorPrimary">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/action_bar_UserImage"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="5dp"
-        android:background="#FFF"
         app:border_color="#FFFFFF"
         app:border_width="1dp" />
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        android:background="#FFFFFF" />
+    <ImageView
+        android:id="@+id/action_bar_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

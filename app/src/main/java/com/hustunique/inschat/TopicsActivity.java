@@ -126,8 +126,8 @@ public class TopicsActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-
-
+        Message message=new Message();
+        handler.sendEmptyMessage(0);
     }
 }
 
