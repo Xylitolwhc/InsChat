@@ -28,6 +28,7 @@ import Application.InsChatApplication;
 import Items.RecycleViewDivider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -39,6 +40,8 @@ public class MainPageFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.action_bar_UserImage)
+    CircleImageView action_bar_UserImage;
 
     private RecyclerViewAdapter recyclerViewAdapter;
     private Handler handler = new Handler() {
@@ -66,6 +69,7 @@ public class MainPageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
+        action_bar_UserImage.setImageResource(R.mipmap.welcome_page);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayout.HORIZONTAL,R.drawable.divider));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

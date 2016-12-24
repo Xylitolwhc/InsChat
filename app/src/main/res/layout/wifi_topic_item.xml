@@ -5,10 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFF"
+    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
     android:padding="8dp">
 
     <LinearLayout
+        android:clickable="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -79,6 +81,7 @@
 
     </LinearLayout>
     <TextView
+        android:clickable="false"
         android:id="@+id/theReplyNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

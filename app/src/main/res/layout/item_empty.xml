@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="50dp"
-    android:text="暂时还没有内容哦\n可以点击右上角创建话题"
+    android:text="暂时还没有内容哦"
     android:gravity="center"/>
 </LinearLayout>

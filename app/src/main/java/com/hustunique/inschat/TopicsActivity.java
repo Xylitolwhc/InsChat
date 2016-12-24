@@ -136,8 +136,13 @@ public class TopicsActivity extends AppCompatActivity {
     }
 
     private void refresh() {
+<<<<<<< HEAD
 
         LeanCloudUtil.getTopicList(wifiSSID,handler);
+=======
+        Message message=new Message();
+        handler.sendEmptyMessage(0);
+>>>>>>> dev-whc
     }
 }
 
