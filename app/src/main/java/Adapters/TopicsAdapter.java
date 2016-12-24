@@ -45,7 +45,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicsView
     @Override
     public void onBindViewHolder(TopicsViewHolder holder, int position) {
         if (topicItemList.size() != 0) {
-            TopicItem topicItem = topicItemList.get(position);
+            final TopicItem topicItem = topicItemList.get(position);
             holder.theUsername.setText(topicItem.getCreatorNickName());
             holder.theTopicTitle.setText(topicItem.getTitle());
             holder.theReplyNumber.setText(topicItem.getReaplyList().size() + "");
@@ -54,6 +54,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicsView
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, TopicDetailActivity.class);
+                    intent.putExtra("HashCode",topicItem.getTopicHashcode());
                     context.startActivity(intent);
                 }
             });
