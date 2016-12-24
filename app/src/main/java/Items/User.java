@@ -13,9 +13,18 @@ public class User {
     private Bitmap avatar;
     private String userId;
     private String avatarPath;
+    private String gender;
 
     public User() {
 
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public User(String nickname, String signature, String imei, Bitmap avatar, String avatarPath) {

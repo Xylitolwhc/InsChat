@@ -17,11 +17,16 @@ public class TopicItem {
     private String title;
     private String content;
     private String wifiName;
+    private String creatorNickName;
+    private String creatorSignature;
+    private int heat;
 
     //其他属性
-    private String creatorNickName;
+
+
+
     private Bitmap creatorAvatar;
-    private int createTime;
+    private long createTime;
 
     private long topicHashcode;
     private ArrayList<ReplyItem>reaplyList;
@@ -30,7 +35,6 @@ public class TopicItem {
 
     }
     public TopicItem( String creatorNickName, Bitmap creatorAvatar, int createTime, String title, String content, String wifiName, ArrayList<ReplyItem> reaplyList) {
-
 
         this.creatorNickName = creatorNickName;
         this.creatorAvatar = creatorAvatar;
@@ -41,11 +45,36 @@ public class TopicItem {
         this.reaplyList = reaplyList;
     }
 
+
+    public int getHeat() {
+        return heat;
+    }
+
+    public void setHeat(int heat) {
+        this.heat = heat;
+    }
+
+
+
+    public void setTopicHashcode(long topicHashcode) {
+        this.topicHashcode = topicHashcode;
+    }
+
+    public String getCreatorSignature() {
+        return creatorSignature;
+    }
+
+    public void setCreatorSignature(String creatorSignature) {
+        this.creatorSignature = creatorSignature;
+    }
+
     public String getImei() {
         return imei;
     }
 
-
+    public void setImei(String imei) {
+        this.imei = imei;
+    }
     public String getCreatorNickName() {
         return creatorNickName;
     }
@@ -62,11 +91,11 @@ public class TopicItem {
         this.creatorAvatar = creatorAvatar;
     }
 
-    public int getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(int createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 

@@ -3,15 +3,18 @@ package com.hustunique.inschat;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Messenger;
 import android.os.PersistableBundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Adapters.TopicsAdapter;
+import Application.InsChatApplication;
 import Items.RecycleViewDivider;
 import Items.ReplyItem;
 import Items.TopicItem;
@@ -43,12 +47,14 @@ public class TopicsActivity extends AppCompatActivity {
     LinearLayout button_back;
 
     private String wifiSSID;
-    private List<TopicItem> topicItemList = new ArrayList<>();
+    TopicsAdapter topicsAdapter;
+
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            TopicsAdapter topicsAdapter = new TopicsAdapter(TopicsActivity.this, topicItemList);
-            recyclerViewOfTopics.setAdapter(topicsAdapter);
+            ArrayList<TopicItem>list = (ArrayList<TopicItem>)msg.obj;
+            //topicsAdapter.setList(list);
             swipeRefreshLayoutOfTopics.setRefreshing(false);
         }
     };
@@ -67,7 +73,11 @@ public class TopicsActivity extends AppCompatActivity {
         recyclerViewOfTopics.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewOfTopics.addItemDecoration(new RecycleViewDivider(this,LinearLayout.HORIZONTAL));
         swipeRefreshLayoutOfTopics.setRefreshing(true);
-        refresh();
+        topicsAdapter =  new TopicsAdapter(this, new ArrayList<TopicItem>());
+        recyclerViewOfTopics.setAdapter(topicsAdapter);
+        //refresh();
+        LeanCloudUtil.getTopicList(wifiSSID,handler);
+        //Log.d("holo", (list == null) + " s");
         swipeRefreshLayoutOfTopics.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -79,15 +89,21 @@ public class TopicsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder=new AlertDialog.Builder(TopicsActivity.this);
-                builder.setView(LayoutInflater.from(TopicsActivity.this).inflate(R.layout.activity_add_topic,null));
-                final EditText topic_add_topic=(EditText)findViewById(R.id.topic_add_topic);
-                final EditText topic_add_content=(EditText)findViewById(R.id.topic_add_content);
+                View dialog = LayoutInflater.from(TopicsActivity.this).inflate(R.layout.activity_add_topic,null);
+                builder.setView(dialog);
+                final EditText topic_add_topic=(EditText)dialog.findViewById(R.id.topic_add_topic);
+                final EditText topic_add_content=(EditText)dialog.findViewById(R.id.topic_add_content);
                 builder.setPositiveButton("发送", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String content=topic_add_content.getText().toString();
                         String topic=topic_add_topic.getText().toString();
-                        TopicItem topicItem=new TopicItem("",null,(int)System.currentTimeMillis(),topic,content,wifiSSID,new ArrayList<ReplyItem>());
+                        Log.d("holo", "content" + content + "topic" + topic);
+                        TopicItem topicItem = new TopicItem();
+                        topicItem.setTitleAndContent(topic, content);
+                        topicItem.setWifiName(wifiSSID);
+                        topicItem.setCreatorNickName(InsChatApplication.getUser().getNickname());
+                        topicItem.setCreatorSignature(InsChatApplication.getUser().getSignature());
                         LeanCloudUtil.addTopic(topicItem);
                     }
                 });
@@ -110,6 +126,9 @@ public class TopicsActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-        handler.sendEmptyMessage(0);
+
+
     }
 }
+
+
