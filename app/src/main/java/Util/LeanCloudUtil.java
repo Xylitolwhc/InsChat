@@ -1,8 +1,5 @@
 package Util;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.nfc.cardemulation.HostApduService;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -14,7 +11,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,17 +30,17 @@ public class LeanCloudUtil {
     public static final String TABLE_TOPIC_LIST = "TOPIC_LIST";
     public static final String TABLE_REPLY_LIST = "CONTENT_LIST";
     public static final String TABLE_USER_LIST = "USER_LIST";
-    private static final String NAME = "NAME";
-    private static final String WIFI_HASHCODE = "WIFI_HASHCODE";
-    private static final String TOPIC_HASHCODE = "TOPIC_HASHCODE";
-    private static final String CONTENT = "CONTENT";
-    private static final String REPLY_CONTENT = "REPLY_CONTENT";
-    private static final String TITLE = "TITLE";
-    private static final String IMEI = "IMEI";
-    private static final String SIGNATURE = "SIGNATURE";
-    private static final String AVATAR = "AVATAR";
-    private static final String NICKMAME = "NICKNAME";
-    private static final String HEAT = "HEAT";
+    public static final String NAME = "NAME";
+    public static final String WIFI_HASHCODE = "WIFI_HASHCODE";
+    public static final String TOPIC_HASHCODE = "TOPIC_HASHCODE";
+    public static final String CONTENT = "CONTENT";
+    public static final String REPLY_CONTENT = "REPLY_CONTENT";
+    public static final String TITLE = "TITLE";
+    public static final String IMEI = "IMEI";
+    public static final String SIGNATURE = "SIGNATURE";
+    public static final String AVATAR = "AVATAR";
+    public static final String NICKNAME = "NICKNAME";
+    public static final String HEAT = "HEAT";
 
 
     public static void addWIFI(final String WIFIName) {
@@ -74,7 +71,7 @@ public class LeanCloudUtil {
         topicObject.add(IMEI, imei);
         topicObject.add(TOPIC_HASHCODE, item.getTopicHashcode());
         topicObject.add(SIGNATURE, item.getCreatorSignature());
-        topicObject.add(NICKMAME, item.getCreatorNickName());
+        topicObject.add(NICKNAME, item.getCreatorNickName());
         topicObject.add(HEAT, 1);
         topicObject.saveInBackground(new SaveCallback() {
             @Override
@@ -110,7 +107,6 @@ public class LeanCloudUtil {
                 object.saveInBackground();
             }
         });
-
     }
 
     public static void addUser(User user) {
@@ -138,35 +134,43 @@ public class LeanCloudUtil {
     public static void getTopicList(String wifiName, final Handler handler) {
         AVQuery<AVObject> query = new AVQuery<>(TABLE_TOPIC_LIST);
         query.whereEqualTo(WIFI_HASHCODE, wifiName.hashCode());
-        Log.d("holo", wifiName);
+
         query.findInBackground(new FindCallback<AVObject>() {
                                    @Override
                                    public void done(List<AVObject> list, AVException e) {
+                                       if (e == null) {
+                                           ArrayList<TopicItem> topicList = new ArrayList<>();
+                                           for (int i = 0; i < list.size(); i++) {
+                                               AVObject object = list.get(i);
+                                               TopicItem item = new TopicItem();
+                                               String title = ((ArrayList<String>) object.get(TITLE)).get(0);
+                                               String content = ((ArrayList<String>) object.get(CONTENT)).get(0);
 
-                                       ArrayList<TopicItem> topicList = new ArrayList<>();
-                                       for (int i = 0; i < list.size(); i++) {
-                                           TopicItem item = new TopicItem();
-                                           String title = (String) list.get(i).get(TITLE);
-                                           String content = (String) list.get(i).get(CONTENT);
 
-                                           item.setTitleAndContent(title, content);
-                                           item.setCreatorNickName((String) list.get(i).get(NICKMAME));
-                                           item.setCreatorSignature((String) list.get(i).get(SIGNATURE));
-                                           item.setImei((String) list.get(i).get(IMEI));
- //                                          item.setCreateTime(list.get(i).getCreatedAt().getTime());
-                                           //item.setCreateTime(((Date) list.get(i).get("createdAt")).getTime());
-                                        //   item.setHeat(2);
-                                           //(Integer) list.get(i).get(HEAT)
-                                        //   topicList.add(item);
+                                               item.setTitleAndContent(title, content);
+
+                                               item.setCreatorNickName(((ArrayList<String>) object.get(NICKNAME)).get(0));
+                                               item.setCreatorSignature(((ArrayList<String>)list.get(i).get(SIGNATURE)).get(0));
+                                               item.setImei(((ArrayList<String>) list.get(i).get(IMEI)).get(0));
+                                               item.setCreateTime(object.getCreatedAt().getTime());
+                                               Log.d("holo",((ArrayList<TopicItem>)list.get(i).get(TOPIC_HASHCODE)).toString());
+                                               //item.setTopicHashcode(((ArrayList<String>) list.get(i).get(IMEI)).get(0));
+                                             //  Log.d("holo",((ArrayList<String>) object.get(HEAT)).get(0));
+
+
+//                                               item.setHeat(heat);
+
+                                               topicList.add(item);
+                                           }
+                                       Message message = new Message();
+                                       message.obj = topicList;
+                                       Log.d("holo", topicList.size() + "a");
+                                           handler.sendMessage(message);
+
                                        }
-//                                       Message message = new Message();
-//                                       message.obj = topicList;
-//                                       Log.d("holo", topicList.size() + "a");
-                                       //handler.sendMessage(message);
-
                                    }
                                }
-            );
+        );
 //        try {
 //            List<AVObject> list = query.find();
 //            Log.d("holo", wifiName);
@@ -178,7 +182,7 @@ public class LeanCloudUtil {
 ////                String content = (String) list.get(i).get(CONTENT);
 ////
 ////                item.setTitleAndContent(title, content);
-////                item.setCreatorNickName((String) list.get(i).get(NICKMAME));
+////                item.setCreatorNickName((String) list.get(i).get(NICKNAME));
 ////                item.setCreatorSignature((String) list.get(i).get(SIGNATURE));
 ////                item.setImei((String) list.get(i).get(IMEI));
 ////                item.setCreateTime(((Date)list.get(i).get("createdAt")).getTime());
@@ -191,29 +195,29 @@ public class LeanCloudUtil {
 //            e.printStackTrace();
 //        }
 
-        }
+    }
 
-        public static ArrayList<ReplyItem> getRepliList ( long hashcode){
-            AVQuery<AVObject> query = new AVQuery<>(TABLE_REPLY_LIST);
-            query.whereEqualTo(TOPIC_HASHCODE, hashcode);
-            try {
-                List<AVObject> list = query.find();
-                ArrayList<ReplyItem> replyList = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++) {
-                    ReplyItem item = new ReplyItem();
-                    item.setImei((String) list.get(i).get(IMEI));
-                    item.setContent((String) list.get(i).get(REPLY_CONTENT));
-                    item.setCreateTime(((Date) list.get(i).get("createdAt")).getTime());
-                    item.setNickName((String) list.get(i).get(NICKMAME));
-                    item.setSignature((String) list.get(i).get(SIGNATURE));
-                    replyList.add(item);
-                }
-                return replyList;
-            } catch (AVException e) {
-                e.printStackTrace();
+    public static ArrayList<ReplyItem> getRepliList(long hashcode) {
+        AVQuery<AVObject> query = new AVQuery<>(TABLE_REPLY_LIST);
+        query.whereEqualTo(TOPIC_HASHCODE, hashcode);
+        try {
+            List<AVObject> list = query.find();
+            ArrayList<ReplyItem> replyList = new ArrayList<>();
+            for (int i = 0; i < list.size(); i++) {
+                ReplyItem item = new ReplyItem();
+                item.setImei((String) list.get(i).get(IMEI));
+                item.setContent((String) list.get(i).get(REPLY_CONTENT));
+                item.setCreateTime(((Date) list.get(i).get("createdAt")).getTime());
+                item.setNickName((String) list.get(i).get(NICKNAME));
+                item.setSignature((String) list.get(i).get(SIGNATURE));
+                replyList.add(item);
             }
-            return null;
+            return replyList;
+        } catch (AVException e) {
+            e.printStackTrace();
         }
+        return null;
+    }
 
     public static boolean ifWIFIExist(String wifiName) {
 

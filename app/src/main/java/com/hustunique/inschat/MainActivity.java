@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkNewUser();
         init();
 
-
 //
 //        User user = new User();
 //        user.setImei(IMEIUtil.getImei());

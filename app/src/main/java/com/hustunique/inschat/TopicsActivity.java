@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.avos.avoscloud.AVObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,8 @@ import Items.TopicItem;
 import Util.LeanCloudUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static Util.LeanCloudUtil.TITLE;
 
 /**
  * Created by 吴航辰 on 2016/12/22.
@@ -53,8 +57,13 @@ public class TopicsActivity extends AppCompatActivity {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            ArrayList<TopicItem>list = (ArrayList<TopicItem>)msg.obj;
-            //topicsAdapter.setList(list);
+            Log.d("holo", "get message");
+            ArrayList<TopicItem> list = (ArrayList<TopicItem>) msg.obj;
+            Log.d("holo", list.get(0).getContent());
+
+            topicsAdapter = new TopicsAdapter(InsChatApplication.getInstance(), list);
+
+            recyclerViewOfTopics.setAdapter(topicsAdapter);
             swipeRefreshLayoutOfTopics.setRefreshing(false);
         }
     };
@@ -75,8 +84,8 @@ public class TopicsActivity extends AppCompatActivity {
         swipeRefreshLayoutOfTopics.setRefreshing(true);
         topicsAdapter =  new TopicsAdapter(this, new ArrayList<TopicItem>());
         recyclerViewOfTopics.setAdapter(topicsAdapter);
-        //refresh();
-        LeanCloudUtil.getTopicList(wifiSSID,handler);
+        refresh();
+
         //Log.d("holo", (list == null) + " s");
         swipeRefreshLayoutOfTopics.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -123,11 +132,12 @@ public class TopicsActivity extends AppCompatActivity {
                  onBackPressed();
             }
         });
+
     }
 
     private void refresh() {
 
-
+        LeanCloudUtil.getTopicList(wifiSSID,handler);
     }
 }
 

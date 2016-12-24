@@ -3,6 +3,7 @@ package Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +49,8 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicsView
             TopicItem topicItem = topicItemList.get(position);
             holder.theUsername.setText(topicItem.getCreatorNickName());
             holder.theTopicTitle.setText(topicItem.getTitle());
-            holder.theReplyNumber.setText(topicItem.getReaplyList().size() + "");
-            holder.theUserImage.setImageBitmap(topicItem.getCreatorAvatar());
+            //holder.theReplyNumber.setText(topicItem.getReaplyList().size() + "");
+            //holder.theUserImage.setImageBitmap(topicItem.getCreatorAvatar());
             holder.WifiTopicLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -84,7 +85,8 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicsView
     }
 
     public void setList(ArrayList<TopicItem> list) {
-        this.topicItemList = list;
-        this.notifyDataSetChanged();
+        topicItemList.clear();
+        this.topicItemList.addAll(list);
+        Log.d("holo", "finish set");
     }
 }
