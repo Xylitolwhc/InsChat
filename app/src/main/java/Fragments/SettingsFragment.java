@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.hustunique.inschat.R;
+import com.hustunique.inschat.UserDetailActivity;
 import com.hustunique.inschat.UserSettingActivity;
 
 import Application.InsChatApplication;
@@ -39,9 +40,10 @@ public class SettingsFragment extends Fragment {
     TextView action_bar_text;
     @OnClick(R.id.set)
     public void setOnClick() {
-        Intent intent = new Intent(InsChatApplication.getInstance(), UserSettingActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        InsChatApplication.getInstance().startActivity(intent);
+//        Intent intent = new Intent(InsChatApplication.getInstance(), UserDetailActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        InsChatApplication.getInstance().startActivity(intent);
+        startActivity(new Intent(InsChatApplication.getInstance(),UserDetailActivity.class));
     }
     @Nullable
     @Override

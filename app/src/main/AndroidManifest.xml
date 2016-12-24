@@ -39,6 +39,7 @@
         <activity android:name=".TopicDetailActivity" />
         <activity android:name=".TopicsActivity" />
         <activity android:name=".UserSettingActivity"/>
+        <activity android:name=".UserDetailActivity"/>
     </application>
 
 </manifest>
